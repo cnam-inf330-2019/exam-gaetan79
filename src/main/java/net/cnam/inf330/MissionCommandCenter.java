@@ -11,11 +11,23 @@ public class MissionCommandCenter {
     private List<Rover> rovers;
 
     // TODO 1) Make MCC a singleton class
+    private static volatile MissionCommandCenter instance = null;
 
+    public static MissionCommandCenter getInstance(){
+        if (instance == null) {
+            synchronized (MissionCommandCenter.class) {
+                if (instance == null) {
+                    instance = new MissionCommandCenter();
+                }
+            }
+        }
+
+        return instance;
+    }
     /**
      * Create a MCC without a predefined grid size.
      */
-    public MissionCommandCenter() {
+    private MissionCommandCenter() {
         this.gridWidth = -1;
         this.gridHeight = -1;
         this.rovers = new ArrayList<>();
@@ -121,6 +133,11 @@ public class MissionCommandCenter {
                     "Position out of grid ! Communication signal weak.");
 
         // TODO 2) Throw an InvalidRoverPositionException if there is another rover on the rover's current position.
+        for (Rover roverTest : rovers) {
+            if (roverTest.getX() == rover.getX() && roverTest.getY() == rover.getY())
+                throw new InvalidRoverPositionException(rover,
+                        "Position is already taken !");
+        }
     }
 
     /**

@@ -20,6 +20,7 @@ public class RoverTest {
     @BeforeClass // This method is run only once, before the test methods are run
     public static void initMissionCommandCenter() {
         // TODO 1) Initialize MCC singleton instance before the test methods are run
+        MissionCommandCenter.getInstance();
     }
 
     /**
@@ -44,6 +45,22 @@ public class RoverTest {
     /* TODO 3) 5) Write a new test for a scenario where 2 rovers collide at the same position on the grid
      *   and the second rover must pull back as a result
      */
+    public void SamePosition(){
+        MissionCommandCenter mc = new MissionCommandCenter(0,0);
+
+        //Variable declaration
+        Rover rover1 = new Rover(1,1,1,Orientation.N);
+        mc.addRover(rover1);
+        Rover rover2 = new Rover(1,1,1,Orientation.N);
+        int positionInitialeX = rover1.getX();
+        int positionInitialeY = rover1.getY();
+        Orientation orientationInitiale = rover2.getO();
+        //Assert statements
+        ThrowingRunnable mcc = () -> mc.checkRoverPosition(rover2);
+        assertNotEquals(rover2.getX(),positionInitialeX);
+        assertNotEquals(rover2.getY(),positionInitialeY);
+
+    }
 
     /* TODO 5) Write a new test for a scenario where a rover is created at an invalid position
      *   and is not deployed as a result
