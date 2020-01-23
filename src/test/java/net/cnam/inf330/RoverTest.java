@@ -30,35 +30,38 @@ public class RoverTest {
     // TODO 5) Change this test to check that the rover pulls back after moving out of the grid
     @Test
     public void testRoverOutOfGridException() {
-        MissionCommandCenter mcc = new MissionCommandCenter(1, 1);
+        MissionCommandCenter missionCommandCenter = MissionCommandCenter.getInstance();
         Rover rover = new Rover(1, 0, 0, Orientation.N);
-        mcc.addRover(rover);
+        missionCommandCenter.addRover(rover);
         rover.moveForward();
         rover.moveForward();
 
-        ThrowingRunnable tr = () -> mcc.checkRoverPosition(rover);
+        ThrowingRunnable tr = () -> missionCommandCenter.checkRoverPosition(rover);
         assertThrows(InvalidRoverPositionException.class, tr);
 
-        mcc.clearRovers();
+        missionCommandCenter.clearRovers();
     }
 
     /* TODO 3) 5) Write a new test for a scenario where 2 rovers collide at the same position on the grid
      *   and the second rover must pull back as a result
      */
+    @Test
     public void SamePosition(){
-        MissionCommandCenter mc = new MissionCommandCenter(0,0);
+        MissionCommandCenter missionCommandCenter = MissionCommandCenter.getInstance();
 
-        //Variable declaration
+        //Création des rovers
         Rover rover1 = new Rover(1,1,1,Orientation.N);
-        mc.addRover(rover1);
+        missionCommandCenter.addRover(rover1);
         Rover rover2 = new Rover(1,1,1,Orientation.N);
         int positionInitialeX = rover1.getX();
         int positionInitialeY = rover1.getY();
-        Orientation orientationInitiale = rover2.getO();
-        //Assert statements
-        ThrowingRunnable mcc = () -> mc.checkRoverPosition(rover2);
-        assertNotEquals(rover2.getX(),positionInitialeX);
-        assertNotEquals(rover2.getY(),positionInitialeY);
+
+        //Test position valide
+        ThrowingRunnable missionCommandCenter2 = () -> missionCommandCenter.checkRoverPosition(rover2);
+        assertThrows(InvalidRoverPositionException.class, missionCommandCenter2);
+        //Test meme position
+        assertNotEquals(rover2.getX()+rover2.getY(),positionInitialeX+positionInitialeY);
+
 
     }
 
