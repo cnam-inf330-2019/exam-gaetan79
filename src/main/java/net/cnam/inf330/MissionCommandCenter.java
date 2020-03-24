@@ -24,6 +24,9 @@ public class MissionCommandCenter {
 
         return instance;
     }
+
+    // FIXME Missing getInstance with parameters
+
     /**
      * Create a MCC without a predefined grid size.
      */
@@ -39,6 +42,7 @@ public class MissionCommandCenter {
      * @param gridWidth  The width (X axis) of the exploration grid
      * @param gridHeight The height (Y axis) of the exploration grid
      */
+    // FIXME Constructor should be private
     public MissionCommandCenter(int gridWidth, int gridHeight) {
         this.gridWidth = gridWidth;
         this.gridHeight = gridHeight;
@@ -70,6 +74,7 @@ public class MissionCommandCenter {
             String roverInstructionsData = it.next();
 
             Rover rover = deployAndMoveRover(currentRoverId, roverInitialStateData, roverInstructionsData);
+            // FIXME What if rover is null ? => NPE
             rovers.add(rover);
             System.out.println("Rover " + currentRoverId + "'s final state : " + rover);
 
@@ -120,6 +125,7 @@ public class MissionCommandCenter {
             try{
                 checkRoverPosition(rover);
             }catch (Exception e){
+                // FIXME Why not implement moveBackwards in Rover ?
                 rover.rotateLeft();
                 rover.rotateLeft();
                 rover.moveForward();

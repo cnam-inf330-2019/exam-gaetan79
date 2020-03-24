@@ -21,13 +21,14 @@ public class RoverTest {
     public static void initMissionCommandCenter() {
         // TODO 1) Initialize MCC singleton instance before the test methods are run
         MissionCommandCenter.getInstance();
+        // FIXME The idea was to store the instance in a member variable
     }
 
     /**
      * Application must catch an InvalidRoverPositionException if a rover has moved out of the grid.
      * Rover must pull back after moving out of the grid.
      */
-    // TODO 5) Change this test to check that the rover pulls back after moving out of the grid
+    // TODO FIXME 5) Change this test to check that the rover pulls back after moving out of the grid
     @Test
     public void testRoverOutOfGridException() {
         MissionCommandCenter missionCommandCenter = MissionCommandCenter.getInstance();
@@ -60,6 +61,7 @@ public class RoverTest {
         ThrowingRunnable missionCommandCenter2 = () -> missionCommandCenter.checkRoverPosition(rover2);
         assertThrows(InvalidRoverPositionException.class, missionCommandCenter2);
         //Test meme position
+        // FIXME Wrong test
         assertNotEquals(rover2.getX()+rover2.getY(),positionInitialeX+positionInitialeY);
 
 
@@ -77,7 +79,7 @@ public class RoverTest {
         List<String> inputLines = Main.readResourceFile("rover_test_input.txt");
         List<String> expectedOutputLines = Main.readResourceFile("rover_test_output.txt");
 
-        // TODO 7) Test that processing the input lines produces an output that matches the expected output lines
+        // TODO FIXME 7) Test that processing the input lines produces an output that matches the expected output lines
         fail();
     }
 }
